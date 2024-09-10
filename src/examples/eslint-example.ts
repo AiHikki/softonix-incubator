@@ -1,11 +1,11 @@
 class EslintExample {
-    list = [1, 2, 3];
+  list = [1, 2, 3]
 
-  renderList() {
-    if (list)  {
-      console.log(list)
+  renderList () {
+    if (this.list) {
+      console.log(this.list)
     }
   }
 }
 
-export const eslintExample =new EslintExample()
+export const eslintExample = new EslintExample()

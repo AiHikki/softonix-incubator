@@ -1,12 +1,13 @@
 <template>
-  <div class="p-4 text-black text-black">Hello {{ data.name }}!
+  <div class="p-4 text-black">
+    Hello {{ data.name }}!
   </div>
 </template>
 
 <script lang="ts" setup>
 import { eslintExample } from '@/examples/eslint-example'
 
-const data = reactive({ name: 'Player' });
+const data = reactive({ name: 'Player' })
 
 onMounted(() => {
   eslintExample.renderList()
