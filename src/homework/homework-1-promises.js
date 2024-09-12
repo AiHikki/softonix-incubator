@@ -13,4 +13,16 @@ export const arrayHandler = (num) => {
 
 const array = [1, 2, 3, 4, 5]
 
-console.log(array)
+async function executeSequentially () {
+  for (let i = 0; i < array.length; i++) {
+    const num = array[i]
+    try {
+      await arrayHandler(num)
+    } catch (error) {
+      console.error(error)
+      return
+    }
+  }
+}
+
+executeSequentially()

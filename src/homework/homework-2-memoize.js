@@ -5,7 +5,22 @@ function sum (a, b) { return a + b } // for test
 
 // eslint-disable-next-line
 function memoize (fn) {
-  // fn ваш код тут...
+  const cache = new Map()
+
+  return function (...args) {
+    const key = JSON.stringify(args)
+
+    if (cache.has(key)) {
+      console.log('Result from cache: ', cache.get(key))
+      return cache.get(key)
+    }
+
+    const result = fn(...args)
+    cache.set(key, result)
+
+    console.log('Result: ', result)
+    return result
+  }
 }
 
 // приклад виконання вашого коду
