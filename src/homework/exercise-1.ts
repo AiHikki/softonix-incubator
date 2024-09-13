@@ -1,7 +1,13 @@
 // Опишіть interface на основі змінної users та використайте його відповідно.
 // Note: Ми використовуємо різні префікси для interface, type, enum (I, T, E відповідно)
 
-const users = [
+interface IUser {
+  name: string
+  age: number
+  occupation: string
+}
+
+const users: IUser[] = [
   {
     name: 'Max Mustermann',
     age: 25,
@@ -14,7 +20,7 @@ const users = [
   }
 ]
 
-function logPerson (user) {
+function logPerson (user: IUser) {
   console.log(` - ${user.name}, ${user.age}`)
 }
 
