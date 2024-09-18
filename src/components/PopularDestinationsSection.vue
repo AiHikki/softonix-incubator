@@ -16,6 +16,7 @@
           src="../assets/img/popular-destinations/mountain-hiking.png" 
           srcset="../assets/img/popular-destinations/mountain-hiking.png 1x, ../assets/img/popular-destinations/mountain-hiking@2x.png 2x" 
           alt="Ocean"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -41,6 +42,7 @@
           src="../assets/img/popular-destinations/machu-picchu.png" 
           srcset="../assets/img/popular-destinations/machu-picchu.png 1x, ../assets/img/popular-destinations/machu-picchu@2x.png 2x" 
           alt="Machu Picchu"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -66,6 +68,8 @@
           src="../assets/img/popular-destinations/grand-canyon.png" 
           srcset="../assets/img/popular-destinations/grand-canyon.png 1x, ../assets/img/popular-destinations/grand-canyon@2x.png 2x" 
           alt="Grand Canyon"
+          loading="lazy"
+      
           >
         </div>
         <div class="px-6 pb-9">
@@ -91,6 +95,7 @@
           src="../assets/img/popular-destinations/rome.png" 
           srcset="../assets/img/popular-destinations/rome.png 1x, ../assets/img/popular-destinations/rome@2x.png 2x" 
           alt="Rome, Italy"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -115,6 +120,7 @@
           src="../assets/img/popular-destinations/mountain-hiking.png" 
           srcset="../assets/img/popular-destinations/mountain-hiking.png 1x, ../assets/img/popular-destinations/mountain-hiking@2x.png 2x" 
           alt="Ocean"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -140,6 +146,7 @@
           src="../assets/img/popular-destinations/machu-picchu.png" 
           srcset="../assets/img/popular-destinations/machu-picchu.png 1x, ../assets/img/popular-destinations/machu-picchu@2x.png 2x" 
           alt="Machu Picchu"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -165,6 +172,7 @@
           src="../assets/img/popular-destinations/grand-canyon.png" 
           srcset="../assets/img/popular-destinations/grand-canyon.png 1x, ../assets/img/popular-destinations/grand-canyon@2x.png 2x" 
           alt="Grand Canyon"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">
@@ -190,6 +198,7 @@
           src="../assets/img/popular-destinations/rome.png" 
           srcset="../assets/img/popular-destinations/rome.png 1x, ../assets/img/popular-destinations/rome@2x.png 2x" 
           alt="Rome, Italy"
+          loading="lazy"
           >
         </div>
         <div class="px-6 pb-9">

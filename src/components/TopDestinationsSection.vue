@@ -22,6 +22,7 @@
           srcset="../assets/img/top-destinations/wood-house.png 1x, ../assets/img/top-destinations/wood-house@2x.png 2x"
           alt="Wood house"
           class="w-[270px] h-[250px]"
+          loading="lazy"
           >
           <div class="absolute top-6 left-6 bg-white rounded-xl font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
             3.5
@@ -39,6 +40,8 @@
           srcset="../assets/img/top-destinations/triangle-house.png 1x, ../assets/img/top-destinations/triangle-house@2x.png 2x"
           alt="House"
           class="w-[370px] h-[526px]"
+          loading="lazy"
+
           >
           <div class="absolute top-6 left-6 bg-primary text-white rounded-xl font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
             3.5
@@ -56,6 +59,8 @@
           srcset="../assets/img/top-destinations/bridge.png 1x, ../assets/img/top-destinations/bridge@2x.png 2x"
           alt="Bridge"
           class="w-[470px] h-[250px]"
+          loading="lazy"
+
           >
           <div class="absolute top-6 left-6 bg-primary text-white rounded-xl font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
             3.5
@@ -73,6 +78,8 @@
           srcset="../assets/img/top-destinations/castle.png 1x, ../assets/img/top-destinations/castle@2x.png 2x"
           alt="Castle"
           class="w-[270px] h-[250px]"
+          loading="lazy"
+
 
           >
           <div class="absolute top-6 left-6 rounded-xl bg-white font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
@@ -91,6 +98,7 @@
           srcset="../assets/img/top-destinations/tower.png 1x, ../assets/img/top-destinations/tower@2x.png 2x"
           alt="Tower"
           class="w-[170px] h-[250px]"
+          loading="lazy"
 
           >
           <div class="absolute top-6 left-6 rounded-xl bg-primary text-white font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
@@ -109,6 +117,7 @@
           srcset="../assets/img/top-destinations/big-ben.png 1x, ../assets/img/top-destinations/big-ben@2x.png 2x"
           alt="Big-ben"
           class="w-[270px] h-[250px]"
+          loading="lazy"
 
           >
           <div class="absolute top-6 left-6 rounded-xl bg-primary text-white font-medium text-sm leading-none px-[10px] py-[5px] first-letter:text-center ">
@@ -125,7 +134,7 @@
   </section>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 const places = ['London', 'Bangkok', 'England', 'Singapore', 'Italy']
 
 const selectedIndex = ref(0)

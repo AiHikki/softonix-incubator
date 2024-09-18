@@ -21,7 +21,8 @@
             src="../assets/img/categories/beach.png"
             srcset="../assets/img/categories/beach.png 1x, ../assets/img/categories/beach@2x.png 2x"
             alt="Beach"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Beach</h3>
       </li>
@@ -31,7 +32,8 @@
             src="../assets/img/categories/desert.png"
             srcset="../assets/img/categories/desert.png 1x, ../assets/img/categories/desert@2x.png 2x"
             alt="Desert"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Desert</h3>
       </li>
@@ -41,7 +43,8 @@
             src="../assets/img/categories/mountain.png"
             srcset="../assets/img/categories/mountain.png 1x, ../assets/img/categories/mountain@2x.png 2x"
             alt="Mountain"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Mountain</h3>
       </li>
@@ -51,7 +54,8 @@
             src="../assets/img/categories/pyramid.png"
             srcset="../assets/img/categories/pyramid.png 1x, ../assets/img/categories/pyramid@2x.png 2x"
             alt="Pyramid"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Pyramid</h3>
       </li>
@@ -61,7 +65,8 @@
             src="../assets/img/categories/temple.png"
             srcset="../assets/img/categories/temple.png 1x, ../assets/img/categories/temple@2x.png 2x"
             alt="Temple"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Temple</h3>
       </li>
@@ -71,7 +76,8 @@
             src="../assets/img/categories/tower.png"
             srcset="../assets/img/categories/tower.png 1x, ../assets/img/categories/tower@2x.png 2x"
             alt="Tower"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Tower</h3>
       </li>
@@ -81,7 +87,8 @@
             src="../assets/img/categories/beach.png"
             srcset="../assets/img/categories/beach.png 1x, ../assets/img/categories/beach@2x.png 2x"
             alt="Beach"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Beach</h3>
       </li>
@@ -91,7 +98,8 @@
             src="../assets/img/categories/desert.png"
             srcset="../assets/img/categories/desert.png 1x, ../assets/img/categories/desert@2x.png 2x"
             alt="Desert"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Desert</h3>
       </li>
@@ -101,7 +109,8 @@
             src="../assets/img/categories/mountain.png"
             srcset="../assets/img/categories/mountain.png 1x, ../assets/img/categories/mountain@2x.png 2x"
             alt="Mountain"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Mountain</h3>
       </li>
@@ -111,7 +120,8 @@
             src="../assets/img/categories/pyramid.png"
             srcset="../assets/img/categories/pyramid.png 1x, ../assets/img/categories/pyramid@2x.png 2x"
             alt="Pyramid"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Pyramid</h3>
       </li>
@@ -121,7 +131,8 @@
             src="../assets/img/categories/temple.png"
             srcset="../assets/img/categories/temple.png 1x, ../assets/img/categories/temple@2x.png 2x"
             alt="Temple"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Temple</h3>
       </li>
@@ -131,7 +142,8 @@
             src="../assets/img/categories/tower.png"
             srcset="../assets/img/categories/tower.png 1x, ../assets/img/categories/tower@2x.png 2x"
             alt="Tower"
-          >
+          loading="lazy"
+            >
         </div>
         <h3 class="font-medium leading-none text-[26px] text-center">Tower</h3>
       </li>

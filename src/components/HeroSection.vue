@@ -48,7 +48,7 @@
           class="h-[555px] w-[534px] object-cover"
           src="../assets/img/hero/hero.png"
           srcset="../assets/img/hero/hero.png 1x, ../assets/img/hero/hero@2x.png 2x"
-          alt=""
+          alt="Happy man with a phone"
         >
       </div>
     </div>

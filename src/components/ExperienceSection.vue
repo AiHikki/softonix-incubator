@@ -7,6 +7,7 @@
           srcset="../assets/img/experience/image.png 1x, ../assets/img/experience/image@2x.png 2x"
           alt="Photographer"
           class="w-[490px] h-[562px]"
+          loading="lazy"
         >
 
         <div class="bg-white rounded-[14px] py-5 text-center px-[14px] absolute bottom-[87px] left-[-51px]">
@@ -15,6 +16,7 @@
             srcset="../assets/img/experience/icon.png 1x, ../assets/img/experience/icon@2x.png 2x"
             alt="Icon"
             class="w-20 h-20 mx-auto"
+            loading="lazy"
           >
 
           <div class="mt-[30px]">
@@ -81,6 +83,3 @@ const achievements = [
 ]
 </script>
 
-<style lang="">
-
-</style>

@@ -7,6 +7,7 @@
           srcset="../assets/img/about/photographer.png 1x, ../assets/img/about/photographer@2x.png 2x"
           alt="Photographer"
           class="w-[390px] h-[540px]"
+          loading="lazy"
         >
       </div>
       <div>

@@ -34,7 +34,3 @@ import sprite from '../assets/icons/sprite.svg'
 import ILogo from './ILogo.vue'
 
 </script>
-
-<style lang="">
-
-</style>
