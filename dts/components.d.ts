@@ -7,7 +7,30 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutSection: typeof import('./../src/components/AboutSection.vue')['default']
+    AchievementCard: typeof import('./../src/components/AchievementCard.vue')['default']
+    ArrowButton: typeof import('./../src/components/ArrowButton.vue')['default']
+    ArrowButtons: typeof import('./../src/components/ArrowButtons.vue')['default']
+    ArrowLeftButton: typeof import('./../src/components/ArrowLeftButton.vue')['default']
+    CategoriesSection: typeof import('./../src/components/CategoriesSection.vue')['default']
+    ExperienceSection: typeof import('./../src/components/ExperienceSection.vue')['default']
+    Header: typeof import('./../src/components/Header.vue')['default']
+    HeroSection: typeof import('./../src/components/HeroSection.vue')['default']
+    ICategories: typeof import('./../src/components/ICategories.vue')['default']
+    IDestinations: typeof import../src/components/AboutSection.vue.vue')['default']
+    IExperience: typeof import('./../src/components/IExperience.vue')['default']
+    IFeedbacks: typeof import('./../src/components/IFeedbacks.vue')['default']
+    IFooter: typeof import('./../src/components/IFooter.vue')['default']
+    IHeader: typeof import('./../src/components/IHeader.vue')['default']
+    IHero: typeof import('./../src/components/IHero.vue')['default']
+    ILogo: typeof import('./../src/components/ILogo.vue')['default']
+    NetworkIcon: typeof import('./../src/components/NetworkIcon.vue')['default']
+    NewsletterSection: typeof import('./../src/components/NewsletterSection.vue')['default']
+    PopularDestinations: typeof import('../src/components/PopularDestinationsSection.vue')['default']
+    PopularDestinationsSection: typeof import('./../src/components/PopularDestinationsSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TopDestinations: typeof import('./../src/components/TopDestinations.vue')['default']
+    TopDestinationsSection: typeof import('./../src/components/TopDestinationsSection.vue')['default']
   }
 }

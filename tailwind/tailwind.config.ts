@@ -9,15 +9,27 @@ export default {
   theme: {
     colors: {
       ...colors,
-      primary: '#0f172a',
-      gray: '#6b7280',
-      'gray-light': '#f3f4f6',
-      'gray-ultra-light': '#e5e7eb',
-      'gray-medium': '#9ca3af',
-      'gray-dark': '#374151'
+      primary: '#2D3134', // Deep Slate
+      secondary: '#5B5F62', // Charcoal
+      ignis: '#F66F4D', // Orange
+      cream: '#FAF8ED', // Soft Cream,
+      'soft-orange': '#FFD482',
+      'slate-blue': '#2E476B', // Slate Blue
+      gray: {
+        50: '#FDFEFF', // Light Gray
+        75: '#EAEAEB',
+        100: '#9498A4', // Gray
+        200: '#939597', // Medium Gray
+        300: '#676A6C' // Dark Gray
+      }
     },
     fontFamily: {
-      main: ['Inter', 'sans-serif']
+      main: ['Inter', 'system-ui'],
+      aurora: ['Poppins', 'system-ui'],
+      horizon: ['Sen', 'system-ui']
+    },
+    backgroundImage: {
+      'orange-gradient': 'linear-gradient(159.99deg, #FFD482 13.35%, #FFBE82 118.92%)',
     },
     extend: {}
   },
