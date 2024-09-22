@@ -1,21 +1,32 @@
 <template>
-  <div class="max-w-[1440px] p-6">
-    <h3 class="font-medium m-0">Contact list</h3>
+  <component :is="Teleport" to="body">
+    <div class="max-w-[1440px] p-6">
+      <h3 class="font-medium m-0 mb-4">Contact list</h3>
 
-    <div class="contact-list grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] grid gap-5 my-5">
-      <ContactItem
-        v-for="(contact, index) in contacts"
-        :key="contact.id"
-        :contact="contact"
-        @delete="deleteContact(index)"
-        @save="onContactSave($event, index)"
-      />
+      <button
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white
+      shadow-sm hover:bg-indigo-500"
+        @click="addNewContact"
+      >
+        Add Contact
+      </button>
+
+      <div class="contact-list grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] grid gap-5 my-5">
+        <ContactItem
+          v-for="(contact, index) in contacts"
+          :key="contact.id"
+          :contact="contact"
+          :is-new="contact.isNew"
+          @delete="deleteContact(index)"
+          @save="onContactSave($event, index)"
+        />
+      </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, Teleport } from 'vue'
 import type { IContact } from '@/types'
 import ContactItem from '@/components/ContactItem.vue'
 
@@ -40,11 +51,26 @@ const contacts = ref<IContact[]>([
   }
 ])
 
+function addNewContact () {
+  const newContact: IContact = {
+    id: Date.now(),
+    name: '',
+    description: '',
+    image: '',
+    isNew: true
+  }
+
+  contacts.value.unshift(newContact)
+}
+
 function deleteContact (index: number) {
-  contacts.value.splice(index, 1)
+  if (confirm('Are you sure you want to delete this contact?')) {
+    contacts.value.splice(index, 1)
+  }
 }
 
 function onContactSave (contact: IContact, index: number) {
   contacts.value[index] = { ...contact }
+  console.log(contacts.value)
 }
 </script>
