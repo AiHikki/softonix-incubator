@@ -10,12 +10,16 @@
             class="block font-medium w-full"
           >
           <input v-model="localContact.description" type="text" class="block mt-1 text-gray w-full">
+          <input v-model="localContact.role" type="text" class="block mt-1 text-gray font-medium w-full">
         </template>
 
         <template v-else>
           <p class="font-medium cursor-text">{{ contact.name }}</p>
           <p class="text-gray cursor-text mt-1 truncate">
             {{ contact.description }}
+          </p>
+          <p class="text-gray font-medium cursor-text mt-1 truncate">
+            {{ contact.role }}
           </p>
         </template>
       </div>
@@ -43,27 +47,36 @@
 
     <div class="flex justify-end mt-2 gap-2">
       <template v-if="editMode">
-        <span
+        <button
           class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
           @click.stop="editMode = false"
-        >Cancel</span>
+        >
+          Cancel
+        </button>
 
-        <span
-          class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
+        <button
+          class="text-blue-500 font-medium text-xs cursor-pointer hover:underline disabled:text-gray"
+          :disabled="!isFormValid"
           @click.stop="onSave"
-        >Save</span>
+        >
+          Save
+        </button>
       </template>
 
       <template v-else>
-        <span
+        <button
           class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
           @click.stop="triggerEditMode"
-        >Edit</span>
+        >
+          Edit
+        </button>
 
-        <span
+        <button
           class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
           @click.stop="$emit('delete', contact)"
-        >Delete</span>
+        >
+          Delete
+        </button>
       </template>
     </div>
 
@@ -103,7 +116,8 @@ const inputRef = ref<HTMLInputElement>()
 const localContact = ref<Omit<IContact, 'id'>>({
   name: '',
   description: '',
-  image: ''
+  image: '',
+  role: ''
 })
 
 const nameAbbrv = computed(() => {
@@ -116,6 +130,11 @@ const nameAbbrv = computed(() => {
 })
 
 const editMode = ref(false)
+
+const isFormValid = computed(() => {
+  const { image, ...contact } = localContact.value
+  return Object.values(contact).every(c => !!c)
+})
 
 async function triggerEditMode () {
   editMode.value = true
