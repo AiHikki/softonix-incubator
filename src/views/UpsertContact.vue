@@ -13,7 +13,7 @@
 
       <template #footer>
         <div class="px-6 pb-6 mt-2 flex gap-3">
-          <AppButton class="flex-auto" @click="$router.back">
+          <AppButton class="flex-auto" @click="router.back">
             Cancel
           </AppButton>
 

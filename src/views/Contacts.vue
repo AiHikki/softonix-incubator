@@ -40,6 +40,7 @@ import IconPlus from '@/components/icons/IconPlus.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import SortSelect from '@/components/SortSelect.vue'
 import RolesSelect from '@/components/RolesSelect.vue'
+import type { TSorting } from '@/types'
 import { computed, ref } from 'vue'
 
 const router = useRouter()
@@ -48,7 +49,7 @@ const contactsStore = useContactsStore()
 const { updateContact, deleteContact, sortContacts, filterContacts, filterByRole } = contactsStore
 
 const searchQuery = ref('')
-const sortingType = ref('')
+const sortingType = ref<TSorting>('')
 const selectedRoles = ref([])
 
 const filteredAndSortedContacts = computed(() => {

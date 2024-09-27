@@ -53,8 +53,9 @@ export const useContactsStore = defineStore('contactsStore', () => {
   }
 
   function sortContacts (contacts: IContact[], sortBy: TSorting) {
+    console.log(sortBy)
     if (sortBy === 'ascending') {
-      return [...contacts].sort((a, b) => a.name.localeCompare(b.name)) // Shallow copy before sorting
+      return [...contacts].sort((a, b) => a.name.localeCompare(b.name))
     } else if (sortBy === 'descending') {
       return [...contacts].sort((a, b) => b.name.localeCompare(a.name))
     } else {
