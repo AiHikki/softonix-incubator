@@ -42,7 +42,7 @@
 
           <!-- Conditionally display the button only if there are more than 5 jobs -->
           <button
-            v-if="group.jobs.length > JOBS_PER_PAGE"
+            v-if="group.jobs.length > VISIBLE_JOBS"
             class="text-blue-400 font-medium hover:underline"
             @click="toggleSeeMore(group.departmentValue, group.jobs.length)"
           >
@@ -56,14 +56,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue'
-
 const selectedDepartments = ref<string[]>([])
 const departments = ref<IDepartment[]>([])
 const jobOpenings = ref<IJobOpening[]>([])
 const showMore = ref<Record<string, boolean>>({}) // Track which groups have "See more" expanded
 const visibleCount = ref<Record<string, number>>({}) // Track number of visible jobs per department
-const JOBS_PER_PAGE = 5 // Define how many jobs to show at a time
+const VISIBLE_JOBS = 5 // Define how many jobs to show at a time
 
 onMounted(() => {
   departments.value = jobOpeningsService.fetchDepartments()
@@ -76,17 +74,16 @@ const filteredDepartments = computed(() => {
     jobOpenings.value.some(job => job.departments.includes(department.value))
   )
 
+  filtered.sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
+
   const hasOtherJobs = jobOpenings.value.some(job => job.departments.length === 0)
   if (hasOtherJobs) {
     filtered.push({ name: 'Other', value: 'other' })
   }
 
-  // Sort alphabetically, but place "Other" at the end
-  return filtered.sort((a, b) => {
-    if (a.name === 'Other') return 1
-    if (b.name === 'Other') return -1
-    return a.name.localeCompare(b.name)
-  })
+  return filtered
 })
 
 // Group job openings by department
@@ -94,8 +91,11 @@ const groupedJobOpenings = computed(() => {
   const groupedObj: Record<string, IJobOpening[]> = {}
 
   jobOpenings.value.forEach(job => {
-    if (job.departments.length > 0) {
-      job.departments.forEach(departmentValue => {
+    const jobDepartments = job.departments
+      .filter(departmentValue => filteredDepartments.value.map(dep => dep.value).includes(departmentValue))
+
+    if (jobDepartments.length > 0) {
+      jobDepartments.forEach(departmentValue => {
         if (!groupedObj[departmentValue]) {
           groupedObj[departmentValue] = []
         }
@@ -109,18 +109,20 @@ const groupedJobOpenings = computed(() => {
     }
   })
 
-  return Object.entries(groupedObj).map(([departmentValue, jobs]) => {
-    const department = departments.value.find(dep => dep.value === departmentValue)
-    return {
-      departmentValue,
-      departmentName: department ? department.name : departmentValue === 'other' ? 'Other' : departmentValue,
-      jobs
-    }
-  }).sort((a, b) => {
-    if (a.departmentValue === 'other') return 1
-    if (b.departmentValue === 'other') return -1
-    return a.departmentName.localeCompare(b.departmentName)
-  })
+  return Object.entries(groupedObj)
+    .map(([departmentValue, jobs]) => {
+      const department = filteredDepartments.value.find(dep => dep.value === departmentValue)
+      return {
+        departmentValue,
+        departmentName: department?.name ?? 'Unknown',
+        jobs
+      }
+    })
+    .sort((a, b) => {
+      if (a.departmentName === 'Other') return 1
+      if (b.departmentName === 'Other') return -1
+      return a.departmentName.localeCompare(b.departmentName)
+    })
 })
 
 // Filter job openings based on selected departments
@@ -133,7 +135,7 @@ const filteredJobOpenings = computed(() => {
 
 // Get visible jobs based on pagination
 function visibleJobs (jobs: IJobOpening[], departmentValue: string) {
-  const count = visibleCount.value[departmentValue] || JOBS_PER_PAGE // Default to JOBS_PER_PAGE
+  const count = visibleCount.value[departmentValue] || VISIBLE_JOBS
   return jobs.slice(0, showMore.value[departmentValue] ? jobs.length : count) // Show all jobs if "See More" is clicked
 }
 
@@ -145,7 +147,7 @@ const toggleSeeMore = (departmentValue: string, totalJobs: number) => {
   if (showMore.value[departmentValue]) {
     visibleCount.value[departmentValue] = totalJobs // Show all jobs
   } else {
-    visibleCount.value[departmentValue] = JOBS_PER_PAGE // Reset to initial count
+    visibleCount.value[departmentValue] = VISIBLE_JOBS // Reset to initial count
   }
 }
 
