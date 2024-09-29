@@ -1,0 +1,170 @@
+<template>
+  <div class="w-[500px] border border-gray-medium rounded-sm p-3">
+    <h3 class="uppercase text-gray-medium font-semibold mb-4">Job openings</h3>
+    <div class="mb-0.5">
+      <p class="text-sm text-gray mb-0.5">Departments:</p>
+      <MultiSelect
+        v-model="selectedDepartments"
+        :options="filteredDepartments"
+        placeholder="Selected departments"
+        multiple
+        collapse-tags
+      />
+    </div>
+    <p class="text-sm text-gray mb-3">
+      Showing
+      <span v-if="currentlyShowingJobOpenings" class="font-medium">
+        {{ currentlyShowingJobOpenings }} out of
+      </span>
+      <span class="font-medium">
+        {{ jobOpenings.length }}
+      </span>
+      job openings
+    </p>
+
+    <hr class="text-gray-medium mb-1">
+
+    <ul class="pl-4">
+      <li v-for="group in filteredJobOpenings" :key="group.departmentValue">
+        <span class="text-primary font-medium">{{ group.departmentName }} ({{ group.jobs.length }})</span>
+        <div class="pl-4">
+          <ul class="list-disc list-inside mb-1">
+            <li
+              v-for="job in visibleJobs(group.jobs, group.departmentValue)"
+              :key="job.id"
+              class="truncate marker:text-green-600"
+            >
+              <a class="text-blue-400 hover:underline" href="job.url" target="_blank">
+                {{ job.title }}
+              </a>
+            </li>
+          </ul>
+
+          <!-- Conditionally display the button only if there are more than 5 jobs -->
+          <button
+            v-if="group.jobs.length > JOBS_PER_PAGE"
+            class="text-blue-400 font-medium hover:underline"
+            @click="toggleSeeMore(group.departmentValue, group.jobs.length)"
+          >
+            <!-- Change the button text based on the showMore state -->
+            {{ showMore[group.departmentValue] ? 'See Less' : 'See More' }}
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, computed, onMounted } from 'vue'
+
+const selectedDepartments = ref<string[]>([])
+const departments = ref<IDepartment[]>([])
+const jobOpenings = ref<IJobOpening[]>([])
+const showMore = ref<Record<string, boolean>>({}) // Track which groups have "See more" expanded
+const visibleCount = ref<Record<string, number>>({}) // Track number of visible jobs per department
+const JOBS_PER_PAGE = 5 // Define how many jobs to show at a time
+
+onMounted(() => {
+  departments.value = jobOpeningsService.fetchDepartments()
+  jobOpenings.value = jobOpeningsService.fetchJobOpenings()
+})
+
+// Filter departments based on job openings
+const filteredDepartments = computed(() => {
+  const filtered = departments.value.filter(department =>
+    jobOpenings.value.some(job => job.departments.includes(department.value))
+  )
+
+  const hasOtherJobs = jobOpenings.value.some(job => job.departments.length === 0)
+  if (hasOtherJobs) {
+    filtered.push({ name: 'Other', value: 'other' })
+  }
+
+  // Sort alphabetically, but place "Other" at the end
+  return filtered.sort((a, b) => {
+    if (a.name === 'Other') return 1
+    if (b.name === 'Other') return -1
+    return a.name.localeCompare(b.name)
+  })
+})
+
+// Group job openings by department
+const groupedJobOpenings = computed(() => {
+  const groupedObj: Record<string, IJobOpening[]> = {}
+
+  jobOpenings.value.forEach(job => {
+    if (job.departments.length > 0) {
+      job.departments.forEach(departmentValue => {
+        if (!groupedObj[departmentValue]) {
+          groupedObj[departmentValue] = []
+        }
+        groupedObj[departmentValue].push(job)
+      })
+    } else {
+      if (!groupedObj.other) {
+        groupedObj.other = []
+      }
+      groupedObj.other.push(job)
+    }
+  })
+
+  return Object.entries(groupedObj).map(([departmentValue, jobs]) => {
+    const department = departments.value.find(dep => dep.value === departmentValue)
+    return {
+      departmentValue,
+      departmentName: department ? department.name : departmentValue === 'other' ? 'Other' : departmentValue,
+      jobs
+    }
+  }).sort((a, b) => {
+    if (a.departmentValue === 'other') return 1
+    if (b.departmentValue === 'other') return -1
+    return a.departmentName.localeCompare(b.departmentName)
+  })
+})
+
+// Filter job openings based on selected departments
+const filteredJobOpenings = computed(() => {
+  if (selectedDepartments.value.length > 0) {
+    return groupedJobOpenings.value.filter(group => selectedDepartments.value.includes(group.departmentValue))
+  }
+  return groupedJobOpenings.value
+})
+
+// Get visible jobs based on pagination
+function visibleJobs (jobs: IJobOpening[], departmentValue: string) {
+  const count = visibleCount.value[departmentValue] || JOBS_PER_PAGE // Default to JOBS_PER_PAGE
+  return jobs.slice(0, showMore.value[departmentValue] ? jobs.length : count) // Show all jobs if "See More" is clicked
+}
+
+// Toggle the "See more" functionality
+const toggleSeeMore = (departmentValue: string, totalJobs: number) => {
+  showMore.value[departmentValue] = !showMore.value[departmentValue]
+
+  // Set visible count based on the button state
+  if (showMore.value[departmentValue]) {
+    visibleCount.value[departmentValue] = totalJobs // Show all jobs
+  } else {
+    visibleCount.value[departmentValue] = JOBS_PER_PAGE // Reset to initial count
+  }
+}
+
+const currentlyShowingJobOpenings = computed(() => {
+  // If no department is selected, return null to display the default message
+  if (selectedDepartments.value.length === 0) {
+    return null
+  }
+
+  // Create a set to track unique job IDs across the filtered departments
+  const uniqueJobIds = new Set<string>()
+
+  filteredJobOpenings.value.forEach(group => {
+    group.jobs.forEach(job => {
+      uniqueJobIds.add(job.id)
+    })
+  })
+
+  return uniqueJobIds.size
+})
+
+</script>
