@@ -1,34 +1,44 @@
 <template>
-  <div class="flex justify-center">
-    <Card :title="cardTitle" class="w-[350px]">
-      <div class="space-y-4">
-        <AppInput v-model.trim="contactForm.name" placeholder="Name" />
+  <div class="max-w-[350px] mx-auto">
+    <el-card>
+      <template #header>
+        <p class="font-semibold text-xl">
+          {{ cardTitle }}
+        </p>
+      </template>
 
-        <AppInput v-model.trim="contactForm.description" placeholder="Description" />
+      <el-form ref="formRef" :rules="formRules" :model="formModel" @submit.prevent="onSubmit">
+        <el-form-item prop="name">
+          <el-input v-model="formModel.name" placeholder="Name" />
+        </el-form-item>
 
-        <AppInput v-model.trim="contactForm.image" placeholder="Image Link" />
-      </div>
+        <el-form-item prop="description">
+          <el-input v-model="formModel.description" placeholder="Description" />
+        </el-form-item>
 
-      <template #footer>
-        <div class="px-6 pb-6 mt-2 flex gap-3">
-          <AppButton class="flex-auto" @click="$router.back">
+        <el-form-item>
+          <el-input v-model="formModel.image" placeholder="Image Link" />
+        </el-form-item>
+
+        <div class="flex justify-center">
+          <el-button :type="$elComponentType.primary" @click="$router.back">
             Cancel
-          </AppButton>
+          </el-button>
 
-          <AppButton v-if="currentContact" class="flex-auto" @click="onDelete">
+          <el-button v-if="currentContact" :type="$elComponentType.danger" @click="onDelete">
             Delete
-          </AppButton>
+          </el-button>
 
-          <AppButton class="flex-auto" :disabled="!isFormValid" @click="onSave">
+          <el-button native-type="submit" :type="$elComponentType.primary">
             <template #icon>
               <IconPlus class="w-5 h-5" />
             </template>
 
             Save
-          </AppButton>
+          </el-button>
         </div>
-      </template>
-    </Card>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
@@ -44,11 +54,8 @@ const { addContact, updateContact, deleteContact } = contactsStore
 
 const currentContact = computed(() => contacts.value.find(c => c.id === +route.params.contactId))
 
-const cardTitle = computed(() => {
-  return currentContact.value ? 'Edit Contact' : 'New Contact'
-})
-
-const contactForm = reactive<IContact>(currentContact.value
+const formRef = useElFormRef()
+const formModel = useElFormModel(currentContact.value
   ? { ...currentContact.value }
   : {
     id: contacts.value.length + 1,
@@ -57,9 +64,15 @@ const contactForm = reactive<IContact>(currentContact.value
     image: ''
   })
 
-const isFormValid = computed(() => {
-  const { image, ...contact } = contactForm
-  return Object.values(contact).every(c => !!c)
+const formRules = useElFormRules(
+  {
+    name: [useRequiredRule()],
+    description: [useRequiredRule()]
+  }
+)
+
+const cardTitle = computed(() => {
+  return currentContact.value ? 'Edit Contact' : 'New Contact'
 })
 
 function onDelete () {
@@ -69,10 +82,18 @@ function onDelete () {
 
 function onSave () {
   if (currentContact.value) {
-    updateContact(contactForm)
+    updateContact(formModel)
   } else {
-    addContact(contactForm)
+    addContact(formModel)
   }
-  router.push({ name: $routeNames.contacts })
+  router.back()
+}
+
+function onSubmit () {
+  formRef.value.validate(isValid => {
+    if (isValid) {
+      onSave()
+    }
+  })
 }
 </script>

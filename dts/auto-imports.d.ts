@@ -146,6 +146,7 @@ declare global {
   const useElFormRules: typeof import('../src/composables/form-config')['useElFormRules']
   const useEmailRule: typeof import('../src/composables/form-config')['useEmailRule']
   const useGlobalProperties: typeof import('../src/composables/global-properties')['useGlobalProperties']
+  const useLink: typeof import('vue-router')['useLink']
   const useMaxLenRule: typeof import('../src/composables/form-config')['useMaxLenRule']
   const useMinLenRule: typeof import('../src/composables/form-config')['useMinLenRule']
   const useRequiredRule: typeof import('../src/composables/form-config')['useRequiredRule']

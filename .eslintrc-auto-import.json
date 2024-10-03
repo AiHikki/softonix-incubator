@@ -225,6 +225,7 @@
     "requestErrorInterceptor": true,
     "requestInterceptor": true,
     "responseInterceptor": true,
-    "useApiClient": true
+    "useApiClient": true,
+    "useLink": true
   }
 }
