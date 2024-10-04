@@ -11,6 +11,7 @@ declare module 'vue' {
     ContactAvatar: typeof import('./../src/views/contacts/components/ContactAvatar.vue')['default']
     ContactItem: typeof import('./../src/views/contacts/components/ContactItem.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    'ElButto\u0442': typeof import('element-plus/es')['ElButto\u0442']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElForm: typeof import('element-plus/es')['ElForm']

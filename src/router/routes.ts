@@ -12,7 +12,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: routeNames.rootPage,
-    redirect: { name: routeNames.contactsCardView }
+    redirect: { name: routeNames.contacts }
   },
 
   ...authRoutes,

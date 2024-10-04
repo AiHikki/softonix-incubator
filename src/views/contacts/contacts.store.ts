@@ -24,6 +24,10 @@ export const useContactsStore = defineStore('contactsStore', () => {
     contacts.value.push(contact)
   }
 
+  function getContact (id: number) {
+    return contacts.value.find(c => c.id === id)
+  }
+
   function updateContact (contact: IContact) {
     const currentIndex = contacts.value.findIndex(c => c.id === contact.id)
     contacts.value[currentIndex] = { ...contact }
@@ -38,6 +42,7 @@ export const useContactsStore = defineStore('contactsStore', () => {
     contacts,
     addContact,
     deleteContact,
-    updateContact
+    updateContact,
+    getContact
   }
 })

@@ -18,12 +18,12 @@
     </el-button>
   </div>
 
-  <el-tabs v-model="activeTab" class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="Card" :name="$routeNames.contactsCardView">
-      <RouterView />
+  <el-tabs v-model="activeTab" class="demo-tabs" @tab-click="onTabClick">
+    <el-tab-pane label="Card" name="card">
+      <CardView />
     </el-tab-pane>
-    <el-tab-pane label="Table" :name="$routeNames.contactsTableView">
-      <RouterView />
+    <el-tab-pane label="Table" name="table">
+      <TableView />
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -34,17 +34,13 @@ const { $routeNames } = useGlobalProperties()
 const router = useRouter()
 const route = useRoute()
 
-const currentTab = computed(() => {
-  if (route.name === $routeNames.contactsTableView) {
-    return $routeNames.contactsTableView
-  }
-  return $routeNames.contactsCardView
+const getCurrentTab = computed(() => {
+  return route.query.tab?.toString() ?? 'card'
 })
+const activeTab = ref(getCurrentTab.value)
 
-const activeTab = ref(currentTab.value)
-
-const handleClick = (tab: TabsPaneContext) => {
-  router.push({ name: tab.paneName?.toString() })
+function onTabClick (tab: TabsPaneContext) {
+  router.replace({ query: { tab: tab.paneName?.toString() } })
 }
 
 function createNewContact () {
