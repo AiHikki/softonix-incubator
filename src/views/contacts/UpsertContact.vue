@@ -6,7 +6,7 @@
 
         <AppInput v-model.trim="contactForm.description" placeholder="Description" />
 
-        <AppInput v-model.trim="contactForm.image" placeholder="Image Link" />
+        <!-- <AppInput v-model.trim="contactForm.image" placeholder="Image Link" /> -->
       </div>
 
       <template #footer>
@@ -52,8 +52,8 @@ const contactForm = reactive<IContact>(currentContact.value
   : {
     id: contacts.value.length + 1,
     name: '',
-    description: '',
-    image: ''
+    description: ''
+    // image: ''
   })
 
 const isFormValid = computed(() => {
@@ -68,9 +68,10 @@ function onDelete () {
 
 function onSave () {
   if (currentContact.value) {
+    console.log(currentContact.value)
     updateContact(contactForm)
   } else {
-    addContact(contactForm)
+    addContact({ name: contactForm.name, description: contactForm.description })
   }
   router.push({ name: $routeNames.contacts })
 }

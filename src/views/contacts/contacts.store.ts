@@ -1,7 +1,7 @@
 export const useContactsStore = defineStore('contactsStore', () => {
   const contacts = ref<IContact[]>([])
 
-  const getContacts = () => {
+  function getContacts () {
     if (contacts.value.length) return
 
     return contactsService.getContacts()
@@ -10,18 +10,26 @@ export const useContactsStore = defineStore('contactsStore', () => {
       })
   }
 
-  function addContact (contact: IContact) {
-    contacts.value.push(contact)
+  function addContact (contact: Pick<IContact, 'name' | 'description'>) {
+    contactsService.createContact(contact).then(() => {
+      contactsService.getContacts()
+        .then(res => {
+          contacts.value = res
+        })
+    })
   }
 
   function updateContact (contact: IContact) {
-    const currentIndex = contacts.value.findIndex(c => c.id === contact.id)
-    contacts.value[currentIndex] = { ...contact }
+    contactsService.updateContact(contact).then(() => {
+      const index = contacts.value.findIndex(c => c.id === contact.id)
+      contacts.value[index] = { ...contacts.value[index], ...contact }
+    })
   }
 
   function deleteContact (contact: IContact) {
-    const currentIndex = contacts.value.findIndex(c => c.id === contact.id)
-    contacts.value.splice(currentIndex, 1)
+    contactsService.deleteContact(contact).then(() => {
+      contacts.value = contacts.value.filter(c => c.id !== contact.id)
+    })
   }
 
   return {
