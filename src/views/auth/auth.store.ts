@@ -21,6 +21,13 @@ export const useAuthStore = defineStore('authStore', () => {
 
   function register (payload: ILoginRequest) {
     return authService.register(payload)
+      .then((res) => {
+        setTokens({
+          accessToken: res.access_token,
+          refreshToken: res.refresh_token,
+          expiresAt: res.expires_at
+        })
+      })
   }
 
   function login (payload: ILoginRequest) {

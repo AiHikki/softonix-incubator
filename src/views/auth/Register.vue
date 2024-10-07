@@ -56,13 +56,10 @@ const formRules = useElFormRules({
 function submit () {
   formRef.value?.validate(isValid => {
     if (isValid) {
-      window.alert('Check your email for confirmation')
       loading.value = true
 
       register(formModel)
-        .then(() => {
-          router.push($routeNames.login)
-        })
+        .then(() => router.push({ name: $routeNames.contacts }))
         .finally(() => (loading.value = false))
     }
   })
