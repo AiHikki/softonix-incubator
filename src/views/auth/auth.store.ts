@@ -1,56 +1,41 @@
 import { routeNames, router } from '@/router'
 
 export const useAuthStore = defineStore('authStore', () => {
-  // const accessToken = ref(localStorage.getItem('si-token'))
+  const accessToken = ref(localStorage.getItem('si-token'))
+  const refreshToken = ref(localStorage.getItem('si-refresh-token'))
 
-  // function setToken (token: string) {
-  //   accessToken.value = token
-  //   localStorage.setItem('si-token', token)
-  // }
-
-  const authTokens = ref<IAuthTokens>(JSON.parse(localStorage.getItem('authTokens')) || {
-    accessToken: null,
-    refreshToken: null,
-    expiresAt: null
-  })
-
-  function setTokens (tokenObject: IAuthTokens) {
-    authTokens.value = tokenObject
-    localStorage.setItem('authTokens', JSON.stringify(tokenObject)) // Store as JSON string
+  function setToken (token: string, refresh: string) {
+    accessToken.value = token
+    refreshToken.value = refresh
+    localStorage.setItem('si-token', token)
+    localStorage.setItem('si-refresh-token', refresh)
   }
 
   function register (payload: ILoginRequest) {
     return authService.register(payload)
       .then((res) => {
-        setTokens({
-          accessToken: res.access_token,
-          refreshToken: res.refresh_token,
-          expiresAt: res.expires_at
-        })
+        setToken(res.access_token, res.refresh_token)
       })
   }
 
   function login (payload: ILoginRequest) {
     return authService.login(payload)
       .then((res) => {
-        setTokens({
-          accessToken: res.access_token,
-          refreshToken: res.refresh_token,
-          expiresAt: res.expires_at
-        })
+        setToken(res.access_token, res.refresh_token)
       })
   }
 
   function logout () {
-    localStorage.removeItem('authTokens')
-    authTokens.value = { accessToken: null, refreshToken: null, expiresAt: null }
+    localStorage.clear()
+    refreshToken.value = null
+    accessToken.value = null
     window.location.href = router.resolve(routeNames.login).href
   }
 
   return {
-    // accessToken,
-    setTokens,
-    authTokens,
+    setToken,
+    accessToken,
+    refreshToken,
     login,
     logout,
     register
